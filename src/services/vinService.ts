@@ -1,7 +1,16 @@
 // import { get } from "../utils/https"
 
-// const invalidChars = new RegExp(/[I]/, "g")
-export const filter = (vin: string) => vin
+const Pipe = (...functions: Function[]) => (initialValue: any) => {
+    return functions.reduce((acc, fn: Function): Function => fn(acc), initialValue)
+}
+
+export const filter = (vin: string) => {
+    return Pipe(
+        (initialInput: string) => initialInput.toUpperCase(),
+        (upperCaseInput: string) => upperCaseInput.replace(/ioq/gim, ""),
+        (filteredInput: string) => filteredInput.slice(0, 17)
+    )(vin || "")
+}
 
 export const validate = (_vin: string): string => null
 

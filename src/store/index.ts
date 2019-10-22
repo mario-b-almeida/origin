@@ -63,12 +63,7 @@ export const getStore = () => {
         store = createStore(
             reducer,
             initialState,
-            devToolsExtension
-                ? compose(
-                      install(),
-                      devToolsExtension()
-                  )
-                : install()
+            devToolsExtension ? compose(install(), devToolsExtension()) : install()
         ) as TStore
     }
     return store
