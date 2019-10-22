@@ -1,0 +1,6 @@
+.CarInfoPreview {
+    &__Line {}
+    &__Line:first-child {
+        border-top: none;
+    }
+}

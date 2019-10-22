@@ -1,0 +1,19 @@
+$color: #ff9393;
+.VinInput {
+    display: flex;
+    input {
+        border-radius: 5px;
+        caret-color: #1056ad;
+    }
+    &__Error {
+        color: $color;
+    }
+}
+
+::-webkit-input-placeholder {
+    color: #bbb
+}
+
+*:focus {
+    outline: none;
+}
