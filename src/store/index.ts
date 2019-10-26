@@ -14,7 +14,7 @@ export const actions = {
     [setVin]: (vin: string) => createAction(setVin, vin),
     [checkVin]: () => createAction(checkVin),
     [checkVinSuccess]: (payload: CarInfo) => createAction(checkVinSuccess, payload),
-    [checkVinFail]: (payload: Error) => createAction(checkVinFail, payload)
+    [checkVinFail]: (error: string) => createAction(checkVinFail, error)
 }
 
 export type Actions = ReturnType<typeof actions[keyof typeof actions]>
@@ -22,10 +22,16 @@ export type Actions = ReturnType<typeof actions[keyof typeof actions]>
 export const initialState: RootState = {
     vin: "",
     vinCheckResult: "NotLoaded",
-    vinValidationError: null
+    vinValidationError: null,
+    vinResultError: null
 }
 
-export const checkVinCmd = (_vin: string) => () => Cmd.run(vinService.apiCheck, {} as any)
+export const checkVinCmd = (_vin: string) =>
+    Cmd.run(vinService.apiCheck, {
+        args: [_vin],
+        successActionCreator: (result: any) => vinService.setApiAsSucceded(result),
+        failActionCreator: (result: any) => vinService.setApiAsFailed(result)
+    } as any)
 
 export const reducer: LoopReducer<RootState, Actions> = (state, action: Actions) => {
     const ext = extend(state)
@@ -34,17 +40,23 @@ export const reducer: LoopReducer<RootState, Actions> = (state, action: Actions)
     switch (action.type) {
         case setVin:
             const vin = vinService.filter(action.payload)
-            const vinCheckResult = vin === "" ? null : state.vinCheckResult
-            return ext({ vin, vinValidationError: null, vinCheckResult })
+            const vinCheckResult = !!vin ? null : state.vinCheckResult
+            return ext({ vin, vinCheckResult })
 
         case checkVin:
             const vinValidationError = vinService.validate(state.vin)
+
             return vinValidationError
                 ? ext({ vinValidationError })
-                : extCmd({ vinCheckResult: "Loading" }, checkVinCmd(state.vin) as any)
+                : extCmd({ vinCheckResult: "Loading", vinValidationError: null, vinResultError: null }, checkVinCmd(
+                      state.vin
+                  ) as any)
 
         case checkVinSuccess:
             return ext({ vinCheckResult: action.payload })
+
+        case checkVinFail:
+            return ext({ vinResultError: action.payload })
 
         default:
             return state
