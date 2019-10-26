@@ -3,6 +3,7 @@
 /// <reference path="./services/vinService.d.ts" />
 
 declare module "*.scss"
+declare module "config"
 
 type Async<T> = "NotLoaded" | "Loading" | T
 type TMap<TKey extends string, TValue> = { [K in TKey]: TValue }
