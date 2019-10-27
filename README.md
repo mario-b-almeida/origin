@@ -1,5 +1,9 @@
 # [Origin](http://useorigin.com) Front-End Take-Home Assignment
 
+### CI
+
+(Circle CI) [![CircleCI](https://circleci.com/gh/mariobrusarosco/origin/tree/feat%2Fci.svg?style=svg)](https://circleci.com/gh/mariobrusarosco/origin/tree/feat%2Fci)
+
 This application used to allow users to type a car's [VIN number](https://www.autocheck.com/vehiclehistory/autocheck/en/vinbasics) and see it's `year of production`, `make`, `model` and `trim`.
 
 Important parts of it **were intentionally deleted**. We want you to rewrite the deleted parts so that this application works again and it's tests pass.
