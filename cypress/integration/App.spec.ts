@@ -9,7 +9,7 @@ const DOM = {
     carInfoPreview: `${mainSelector} .CarInfoPreview`
 }
 
-const APP_URL = "http://localhost:4000"
+const APP_URL = "http://localhost:4000/vin"
 
 describe("App", () => {
     it("filters VIN, so I cannot type O, Q and I letter", () => {
