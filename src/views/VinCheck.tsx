@@ -16,16 +16,20 @@ const VinCheck: React.SFC<Props & Actions> = ({
     checkVin,
     vinResultError
 }) => (
-    <div className="VinCheck">
+    <form className="VinCheck" onSubmit={e => e.preventDefault()}>
         <div className="Logo" />
         <h3 className="VinCheck__title">Decode Your Vehicle Identification Number</h3>
         <VinInput value={vin} onChange={setVin} error={vinValidationError} />
-        <button disabled={vinCheckResult === "Loading"} onClick={checkVin}>
-            Decode
-        </button>
+        <input
+            className="submit-btn"
+            value="Decode"
+            type="submit"
+            disabled={vinCheckResult === "Loading"}
+            onClick={checkVin}
+        />
         <CarInfoPreview carInfo={vinCheckResult} />
         <ErrorDisplay error={vinResultError} />
-    </div>
+    </form>
 )
 
 const mapState: MapState<Props> = state => state
