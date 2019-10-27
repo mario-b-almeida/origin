@@ -29,7 +29,7 @@ export const initialState: RootState = {
 export const checkVinCmd = (_vin: string) =>
     Cmd.run(vinService.apiCheck, {
         args: [_vin],
-        // successActionCreator: (result: any) => vinService.setApiAsSucceded(result),
+        successActionCreator: (result: any) => vinService.setApiAsSucceded(result),
         failActionCreator: (result: any) => vinService.setApiAsFailed(result)
     } as any)
 

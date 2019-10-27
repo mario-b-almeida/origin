@@ -53,13 +53,12 @@ export const apiCheck = async (_vin: string): Promise<CarInfo> => {
         return null
     }
 
-    dispatch(actions.checkVinSuccess(vehicleData))
-
     return vehicleData
 }
 
-export const setApiAsSucceded = (_: any) => {
-    console.log("success")
+export const setApiAsSucceded = (result: any) => {
+    const dispatch = getStore().dispatch
+    dispatch(actions.checkVinSuccess(result))
 }
 
 export const setApiAsFailed = (_: any) => {
