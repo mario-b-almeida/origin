@@ -2,9 +2,6 @@ import * as React from "react"
 // Styles
 import "./AppLoader.scss"
 
-// Components
-// import Pulse from 'components/Loaders/Pulse'
-
 interface Props {
     history: any
 }
@@ -12,8 +9,7 @@ interface Props {
 export const AppLoader: React.SFC<Props> = ({ history }) => {
     React.useEffect(() => {
         setTimeout(() => {
-            console.log(history)
-            // history.push('/vin')
+            history.push("/vin")
         }, 5000)
     }, [])
 
