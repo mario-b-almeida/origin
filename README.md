@@ -2,7 +2,7 @@
 
 ### CI
 
-(Circle CI) [![CircleCI](https://circleci.com/gh/mariobrusarosco/origin/tree/feat%2Fci.svg?style=svg)](https://circleci.com/gh/mariobrusarosco/origin/tree/feat%2Fci)
+[![CircleCI](https://circleci.com/gh/mariobrusarosco/origin/tree/feat%2Fci.svg?style=svg&circle-token=307797a6765c612ebe4becc6156125a763f8031b)]
 
 This application used to allow users to type a car's [VIN number](https://www.autocheck.com/vehiclehistory/autocheck/en/vinbasics) and see it's `year of production`, `make`, `model` and `trim`.
 
