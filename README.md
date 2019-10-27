@@ -2,7 +2,6 @@
 
 ## Additional Features
 
-
 ### Live Environment
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/32967cec-43b2-45b9-b727-ab6c72e7c8e0/deploy-status)](https://app.netlify.com/sites/origin-assignment-broken/deploys)
@@ -11,20 +10,51 @@ Link: https://origin-assignment-broken.netlify.com/
 
 ### CI
 
-[![CircleCI](https://circleci.com/gh/mariobrusarosco/origin/tree/master.svg?style=svg&circle-token=307797a6765c612ebe4becc6156125a763f8031b)]
+[![CircleCI](https://circleci.com/gh/mariobrusarosco/origin/tree/master.svg?style=svg&circle-token=307797a6765c612ebe4becc6156125a763f8031b)](https://circleci.com/gh/mariobrusarosco/origin/tree/master)
 
-![CircleCI](https://circleci.com/gh/mariobrusarosco/origin/tree/feat%2Fci.svg?style=svg&circle-token=307797a6765c612ebe4becc6156125a763f8031b)
-
+----
 ### End to End updated structure
 
 > When running E2E tests, `npm run test:e2e` will serve the Application and run the tests. No need to call `npm run start` before!!
 
+---
 ### HTML 5 Validation Option
 
 > `VinInput` component can receive a prop named `html5Validation`. It's a `boolean` and when passed with `true` makes the `input` element be rendered:
 
 * as a required input
-* with a regex to make sure 17 chars are passed
+* with a regex to make sure 17 chars were passed
+
+---
+### Error Handling
+
+> The project has a file named `errorMap` inside `src/config` which holds all error messages that our app may need. We define a message creating an entry for this Object, using a code, e.g `A01` as the **key** and any string as the **message**. So now, we can use it anywhere in the application through a constant like `applicationErros['A01']`
+
+
+**errorMap.ts**
+```javascript
+export default {
+    A01: "Ops! Something went wrong. Try again please",
+    A02: "The given VIN number is not a valid one! Please check if all characters were correctly passed"
+} as any
+
+```
+**any_file.ts**
+
+```javascript
+dispatch(actions.checkVinFail(errorsMap["A01"]))
+```
+---
+### API Error
+> When a call to the API fails, the user will see a generic message, saying something went wrong
+---
+### Invalid VIN
+> When an invalid VIN is passed, the user will see a more specific error. The used API brings back a more detailed error, based on the position of an invalid character. But, we still can get information about the vehicle if a few other characters were correctly typed. Another approach would be to show the partial returned vehicle data and inform the user to check the typed VIN again.
+
+
+---
+---
+---
 
 
 This application used to allow users to type a car's [VIN number](https://www.autocheck.com/vehiclehistory/autocheck/en/vinbasics) and see it's `year of production`, `make`, `model` and `trim`.
