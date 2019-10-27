@@ -3,8 +3,8 @@
 
 const mainSelector = "#app"
 const DOM = {
-    vinInput: `${mainSelector} input`,
-    decodeButton: `${mainSelector} button`,
+    vinInput: '[data-test="vin-input"]',
+    decodeButton: `${mainSelector} .submit-btn`,
     errorText: `${mainSelector} .VinInput__Error`,
     carInfoPreview: `${mainSelector} .CarInfoPreview`
 }
@@ -47,7 +47,8 @@ describe("App", () => {
         cy.visit(APP_URL)
         cy.get(DOM.vinInput).type("WBAFR1C52BC745487")
         cy.get(DOM.errorText).should("be.empty")
-        cy.get(DOM.decodeButton)
+        cy
+            .get(DOM.decodeButton)
             .click()
             .should("be.disabled")
         cy.screenshot("040-with-spinner-while-decoding")

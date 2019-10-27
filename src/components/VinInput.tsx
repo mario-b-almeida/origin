@@ -16,16 +16,17 @@ export const VinInput: React.SFC<Props> = ({ value, className, error, onChange, 
     <div className={block({ invalid: !!error }, className)}>
         {html5Validation ? (
             <input
+                type="text"
+                data-test="vin-input"
                 value={value}
                 onChange={e => onChange(e.target.value)}
-                type="text"
                 required
                 pattern="[^\s]{17,}"
                 title="Type17 chars"
             />
         ) : (
-            <input type="text" value={value} onChange={e => onChange(e.target.value)} />
+            <input type="text" data-test="vin-input" value={value} onChange={e => onChange(e.target.value)} />
         )}
-        {error && <div className={element("Error")}>{error}</div>}
+        <div className={element("Error")}>{error}</div>
     </div>
 )

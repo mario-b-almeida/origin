@@ -8,7 +8,7 @@ import vinApi from "../utils/vin_api"
 // Application Errors Map
 import errorsMap from "../config/errorsMap"
 
-const removeIOQ = R.replace(/ioq/gim, "")
+const removeIOQ = R.replace(/[ioq]/gim, "")
 const trimChars = R.take(17)
 
 export const filter = R.pipe(R.toUpper, removeIOQ, input => trimChars(input))
