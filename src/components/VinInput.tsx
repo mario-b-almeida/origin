@@ -14,6 +14,6 @@ interface Props {
 export const VinInput: React.SFC<Props> = ({ value, className, error, onChange }) => (
     <div className={block({ invalid: !!error }, className)}>
         <input value={value} onChange={e => onChange(e.target.value)} />
-        <div className={element("Error")}>{error}</div>
+        {error && <div className={element("Error")}>{error}</div>}
     </div>
 )

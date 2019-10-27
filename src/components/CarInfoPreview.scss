@@ -1,6 +1,19 @@
 .CarInfoPreview {
-    &__Line {}
-    &__Line:first-child {
-        border-top: none;
+    padding-top: 30px;
+
+    &__Line {
+        padding: 10px 0;
+        border-bottom: 1px solid #e2dfdf;
+        font-weight: 400;
+
+
+        @media (min-width: 600px) {
+            font-size: 20px;
+        }
+
+    }
+
+    &__Line:last-child {
+        border-bottom: none;
     }
 }
