@@ -19,10 +19,12 @@ interface Props {
 }
 
 export const CarInfoPreview: React.SFC<Props> = ({ carInfo }) => {
+    if (!carInfo) return null
     if (carInfo === "Loading") return <Spinner />
-    if (carInfo === "NotLoaded" || !carInfo) return null
+
     const { year, make, trim, model } = carInfo
     if (!make) return <div className={block()}>not registered with NHTSA</div>
+
     return (
         <div className={block()}>
             <Line label="Make" value={make} />

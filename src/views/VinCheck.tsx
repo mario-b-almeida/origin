@@ -2,6 +2,7 @@ import * as React from "react"
 import { connect } from "react-redux"
 
 import { VinInput } from "../components/VinInput"
+import { ErrorDisplay } from "../components/ErrorDisplay"
 import { CarInfoPreview } from "../components/CarInfoPreview"
 import { actions, MapState, MapDispatch } from "../store"
 type Props = Pick<RootState, "vin" | "vinCheckResult" | "vinValidationError" | "vinResultError">
@@ -22,7 +23,8 @@ const VinCheck: React.SFC<Props & Actions> = ({
         <button disabled={vinCheckResult === "Loading"} onClick={checkVin}>
             Decode
         </button>
-        <CarInfoPreview carInfo={vinCheckResult} vinResultError={vinResultError} />
+        <CarInfoPreview carInfo={vinCheckResult} />
+        <ErrorDisplay error={vinResultError} />
     </div>
 )
 

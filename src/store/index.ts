@@ -21,7 +21,7 @@ export type Actions = ReturnType<typeof actions[keyof typeof actions]>
 
 export const initialState: RootState = {
     vin: "",
-    vinCheckResult: "NotLoaded",
+    vinCheckResult: null,
     vinValidationError: null,
     vinResultError: null
 }
@@ -40,14 +40,14 @@ export const reducer: LoopReducer<RootState, Actions> = (state, action: Actions)
     switch (action.type) {
         case setVin:
             const vin = vinService.filter(action.payload)
-            const vinCheckResult = !!vin ? null : state.vinCheckResult
-            return ext({ vin, vinCheckResult })
+            const vinCheckResult = vin === "" ? null : state.vinCheckResult
+            return ext({ vin, vinValidationError: null, vinCheckResult })
 
         case checkVin:
             const vinValidationError = vinService.validate(state.vin)
 
             return vinValidationError
-                ? ext({ vinValidationError })
+                ? ext({ vinValidationError, vinResultError: null })
                 : extCmd({ vinCheckResult: "Loading", vinValidationError: null, vinResultError: null }, checkVinCmd(
                       state.vin
                   ) as any)
@@ -56,7 +56,7 @@ export const reducer: LoopReducer<RootState, Actions> = (state, action: Actions)
             return ext({ vinCheckResult: action.payload })
 
         case checkVinFail:
-            return ext({ vinResultError: action.payload })
+            return ext({ vinResultError: action.payload, vinCheckResult: null })
 
         default:
             return state

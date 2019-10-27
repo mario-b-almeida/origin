@@ -1,10 +1,18 @@
 $color: #ff9393;
+
 .VinInput {
     display: flex;
+    width: 100%;
+
     input {
         border-radius: 5px;
         caret-color: #1056ad;
+        outline: 0;
+        border: 0;
+        background: red;
+        display: block;
     }
+
     &__Error {
         color: $color;
     }
