@@ -1,4 +1,14 @@
+// Custom Properties variables
+:root {
+  --primary-color: #000;
+  --secondary-color: #6f6f7f;
+  --pulse-color: var(--secondary-color);
+  --pulse-outer-circle-color: var(--primary-color);
+  --pulse-inner-circle-color: var(--primary-color);
+}
+
 @import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500,700');
+
 body {
     margin: 0;
     font-family: 'Rubik', sans-serif;

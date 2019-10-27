@@ -1,5 +1,8 @@
 # [Origin](http://useorigin.com) Front-End Take-Home Assignment
 
+## Additional Features
+
+
 ### Live Environment
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/32967cec-43b2-45b9-b727-ab6c72e7c8e0/deploy-status)](https://app.netlify.com/sites/origin-assignment-broken/deploys)
@@ -8,16 +11,27 @@ Link: https://origin-assignment-broken.netlify.com/
 
 ### CI
 
+[![CircleCI](https://circleci.com/gh/mariobrusarosco/origin/tree/master.svg?style=svg&circle-token=307797a6765c612ebe4becc6156125a763f8031b)]
+
 ![CircleCI](https://circleci.com/gh/mariobrusarosco/origin/tree/feat%2Fci.svg?style=svg&circle-token=307797a6765c612ebe4becc6156125a763f8031b)
 
-### Simple Modifications
+### End to End updated structure
 
 > When running E2E tests, `npm run test:e2e` will serve the Application and run the tests. No need to call `npm run start` before!!
+
+### HTML 5 Validation Option
+
+> `VinInput` component can receive a prop named `html5Validation`. It's a `boolean` and when passed with `true` makes the `input` element be rendered:
+
+* as a required input
+* with a regex to make sure 17 chars are passed
 
 
 This application used to allow users to type a car's [VIN number](https://www.autocheck.com/vehiclehistory/autocheck/en/vinbasics) and see it's `year of production`, `make`, `model` and `trim`.
 
 Important parts of it **were intentionally deleted**. We want you to rewrite the deleted parts so that this application works again and it's tests pass.
+
+### Additional behaviour for retrieving the VIN information: User can press ENTER right after typing its VIN code!
 
 ## What needs to be done?
 
