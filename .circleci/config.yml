@@ -14,7 +14,7 @@ jobs:
           command: npm i
       - run:
           name: Lint
-          command: npm lint
+          command: npm run lint
       - run:
           name: Running Unit Tests
           command: npm run test
