@@ -11,3 +11,11 @@ export const vinResultEntryFixture = fixtureFactory<VinResultEntry>({
 export const vinCheckResponseFixture = fixtureFactory<VinCheckResponse>({
     Results: []
 })
+
+export const validVehicleData = {
+    Make: "FREIGHTLINER",
+    Model: "FL70",
+    Trim: "TEST TRIM",
+    VehicleType: "TRUCK",
+    ModelYear: "2009"
+}

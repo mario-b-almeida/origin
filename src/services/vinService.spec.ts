@@ -1,5 +1,14 @@
-import { convert, filter } from "./vinService"
-import { vinCheckResponseFixture, vinResultEntryFixture } from "../test/fixtures"
+import {
+    convert,
+    filter,
+    parseMake,
+    parseModel,
+    parseTrim,
+    parseYear,
+    parseVehicleType,
+    parseVehicle
+} from "./vinService"
+import { vinCheckResponseFixture, vinResultEntryFixture, validVehicleData } from "../test/fixtures"
 
 describe("Vin Service", () => {
     describe.skip("Response converter", () => {
@@ -44,6 +53,50 @@ describe("Vin Service", () => {
                 vehicleType: "CAR",
                 trim: "RX8"
             }))
+    })
+
+    describe("Response converter", () => {
+        it('Must Receive a Result and return "make"', () => {
+            const make = parseMake(validVehicleData)
+
+            expect(make).toEqual("FREIGHTLINER")
+        })
+
+        it('Must Receive a Result and return "model"', () => {
+            const model = parseModel(validVehicleData)
+
+            expect(model).toEqual("FL70")
+        })
+
+        it('Must Receive a Result and return "trim"', () => {
+            const trim = parseTrim(validVehicleData)
+
+            expect(trim).toEqual("TEST TRIM")
+        })
+
+        it('Must Receive a Result and return "vehicleType"', () => {
+            const vehicleType = parseVehicleType(validVehicleData)
+
+            expect(vehicleType).toEqual("TRUCK")
+        })
+
+        it('Must Receive a Result and return "year"', () => {
+            const year = parseYear(validVehicleData)
+
+            expect(year).toEqual(2009)
+        })
+
+        it('Must Receive a Result and return "all" desirable data', () => {
+            const vehicle = parseVehicle(validVehicleData)
+
+            expect(vehicle).toEqual({
+                make: "FREIGHTLINER",
+                model: "FL70",
+                trim: "TEST TRIM",
+                vehicleType: "TRUCK",
+                year: 2009
+            })
+        })
     })
 
     describe("Vin string filter", () => {

@@ -18,57 +18,51 @@ export const validate = R.pipe(
     R.ifElse((input: string) => R.lt(R.length(input), 17), R.always("17 chars expected"), R.always(null))
 )
 
+export const parseMake = R.pathOr("N/A", ["Make"])
+export const parseModel = R.pathOr("N/A", ["Model"])
+export const parseYear = R.pipe(R.pathOr("N/A", ["ModelYear"]), (year: string) => parseInt(year, 10) as number)
+export const parseTrim = R.pathOr("N/A", ["Trim"])
+export const parseVehicleType = R.pathOr("N/A", ["VehicleType"])
+
+export const parseVehicle = (result: Object) =>
+    R.pipe(
+        R.assoc("make", parseMake(result)),
+        R.assoc("model", parseModel(result)),
+        R.assoc("year", parseYear(result)),
+        R.assoc("trim", parseTrim(result)),
+        R.assoc("vehicleType", parseVehicleType(result))
+    )({}) as CarInfo
+
 export const convert = (_res: VinCheckResponse): CarInfo => null
 
 export const apiCheck = async (_vin: string): Promise<CarInfo> => {
-    // Dipatcher
     const dispatch = getStore().dispatch
 
     const { ROOT_URL } = vinApi
 
-    try {
-        const result = await get(`${ROOT_URL}${_vin}?format=json`)
-        // Getting only the first result...so far I haven't checked if a VIN search can return multiple vehicles
-        const rawVehicle = R.pipe(
-            R.pathOr({}, ["Results"]),
-            R.head,
-            R.pick(["Make", "Model", "Trim", "VehicleType", "ModelYear", "ErrorCode", "ErrorText"])
-        )(result)
+    const response = await get(`${ROOT_URL}${_vin}?format=json`)
 
-        // In cases where there's no data returned, terminates the code
-        // if(R.isEmpty(rawVehicle)) {
-        //     console.log('[ERROR] - Empty Object')
-        //     dispatch(actions.checkVinFail(errorsMap['A01']))
-        //     return null
-        // }
+    const resultSet = R.pipe(R.pathOr("", ["Results"]), R.head)(response)
 
-        const errorCodes = R.pipe(R.prop("ErrorCode"), R.split(","), R.filter(code => !!Number(code)))(rawVehicle)
+    const vehicleData = parseVehicle(resultSet)
 
-        if (!R.isEmpty(errorCodes)) {
-            dispatch(actions.checkVinFail(errorsMap["A02"]))
-            // We could also show the user the content of the 'TextError' prop,
-            // from the API, if those feedback messages are clear!
-            return null
-        }
+    const errorCodes = R.pipe(R.prop("ErrorCode"), R.split(","), R.filter(code => !!Number(code)))(resultSet)
 
-        const finalPayload = {
-            make: rawVehicle.Make,
-            model: rawVehicle.Model,
-            year: Number(rawVehicle.ModelYear),
-            trim: rawVehicle.Trim,
-            vehicleType: rawVehicle.VehicleType
-        }
+    if (!R.isEmpty(errorCodes)) {
+        dispatch(actions.checkVinFail(errorsMap["A02"]))
+        return null
+    }
 
-        dispatch(actions.checkVinSuccess(finalPayload))
+    dispatch(actions.checkVinSuccess(vehicleData))
 
-        return finalPayload
-    } catch (error) {}
+    return vehicleData
 }
 
-export const setApiAsSucceded = (result: any) => result
+export const setApiAsSucceded = (_: any) => {
+    console.log("success")
+}
 
 export const setApiAsFailed = (_: any) => {
-    // Dipatcher
     const dispatch = getStore().dispatch
     dispatch(actions.checkVinFail(errorsMap["A01"]))
 }
