@@ -8,28 +8,15 @@ import vinApi from "../utils/vin_api"
 // Application Errors Map
 import errorsMap from "../config/errorsMap"
 
-// Utils
-// import { parseErrorCode } from '../utils'
+const removeIOQ = R.replace(/ioq/gim, "")
+const trimChars = R.take(17)
 
-export const filter = (vin: string) => {
-    return R.pipe(
-        (initialInput: string) => initialInput.toUpperCase(),
-        (upperCaseInput: string) => upperCaseInput.replace(/ioq/gim, ""),
-        (filteredInput: string) => filteredInput.slice(0, 17)
-    )(vin || "")
-}
+export const filter = R.pipe(R.toUpper, removeIOQ, input => trimChars(input))
 
-// const removeIOQ = R.replace(/ioq/gim, "")
-// const trimChars = R.take(17)
-
-export const validate = (_vin: string): string => {
-    const filteredInput = filter(_vin)
-
-    return filteredInput.length < 17 ? "17 chars expected" : ""
-}
-// export const validate = (_vin: string): string => {
-//     if(R.lt(R.length(_vin), 17))
-// }
+export const validate = R.pipe(
+    filter,
+    R.ifElse((input: string) => R.lt(R.length(input), 17), R.always("17 chars expected"), R.always(null))
+)
 
 export const convert = (_res: VinCheckResponse): CarInfo => null
 
@@ -58,9 +45,9 @@ export const apiCheck = async (_vin: string): Promise<CarInfo> => {
         const errorCodes = R.pipe(R.prop("ErrorCode"), R.split(","), R.filter(code => !!Number(code)))(rawVehicle)
 
         if (!R.isEmpty(errorCodes)) {
-            console.log("[ERROR] - ")
             dispatch(actions.checkVinFail(errorsMap["A02"]))
-            // We could also show the user the content of the 'TextError' prop, from the API, if those feedback messages are clear!
+            // We could also show the user the content of the 'TextError' prop,
+            // from the API, if those feedback messages are clear!
             return null
         }
 
@@ -78,11 +65,10 @@ export const apiCheck = async (_vin: string): Promise<CarInfo> => {
     } catch (error) {}
 }
 
-export const setApiAsSucceded = (result: any) => console.log("success", result)
+export const setApiAsSucceded = (result: any) => result
 
-export const setApiAsFailed = (result: any) => {
+export const setApiAsFailed = (_: any) => {
     // Dipatcher
     const dispatch = getStore().dispatch
-    console.log("failure", result)
     dispatch(actions.checkVinFail(errorsMap["A01"]))
 }

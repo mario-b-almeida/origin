@@ -1,10 +1,4 @@
-// import { props } from 'ramda'
-
 export { bindBem } from "./bem"
-
-// export const parseErrorCode = VehicleResponse => {
-//     const p
-// }
 
 const NArray = (length: number) => Array.apply(null, { length }).map(Number.call, Number)
 export const mapRepeat: <T>(length: number, cb: (index: number) => T) => T[] = (length, cb) => NArray(length).map(cb)
