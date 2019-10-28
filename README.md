@@ -15,12 +15,12 @@ Link: https://origin-assignment-broken.netlify.com/
 ----
 ### End to End updated structure
 
-> When running E2E tests, `npm run test:e2e` will serve the Application and run the tests. No need to call `npm run start` before!!
+> When running E2E tests, `npm run test:e2e` will serve the Application and run the tests. No need to call `npm run start` to test!
 
 ---
 ### HTML 5 Validation Option
 
-> `VinInput` component can receive a prop named `html5Validation`. It's a `boolean` and when passed with `true` makes the `input` element be rendered:
+> `VinInput` Component can receive a prop named `html5Validation`. It's a `boolean` and when passed with `true` makes the `input` element be rendered:
 
 * as a required input
 * with a regex to make sure 17 chars were passed
@@ -49,7 +49,7 @@ dispatch(actions.checkVinFail(errorsMap["A01"]))
 > When a call to the API fails, the user will see a generic message, saying something went wrong
 ---
 ### Invalid VIN
-> When an invalid VIN is passed, the user will see a more specific error. The used API brings back a more detailed error, based on the position of an invalid character. But, we still can get information about the vehicle if a few other characters were correctly typed. Another approach would be to show the partial returned vehicle data and inform the user to check the typed VIN again.
+> When an invalid VIN is passed, the user will see a more specific error. The used API brings back a more detailed error, based on the position of an invalid character. But, we still can get information about the vehicle if a few other characters were correctly typed. Another approach would be to show the partial vehicle data and inform the user that with the correct VIN we can show even more detailed information.
 
 
 ---
