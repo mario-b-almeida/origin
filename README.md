@@ -4,15 +4,14 @@
 
 ### Live Environment
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/32967cec-43b2-45b9-b727-ab6c72e7c8e0/deploy-status)](https://app.netlify.com/sites/origin-assignment-broken/deploys)
-
-Link: https://origin-assignment-broken.netlify.com/
+Link: https://origin-assignment.netlify.com/
 
 ### CI
 
-[![CircleCI](https://circleci.com/gh/mariobrusarosco/origin/tree/master.svg?style=svg&circle-token=307797a6765c612ebe4becc6156125a763f8031b)](https://circleci.com/gh/mariobrusarosco/origin/tree/master)
+[![CircleCI](https://circleci.com/gh/mario-b-almeida/origin/tree/master.svg?style=svg)](https://circleci.com/gh/mario-b-almeida/origin/tree/master)
 
 ----
+
 ### End to End updated structure
 
 > When running E2E tests, `npm run test:e2e` will serve the Application and run the tests. No need to call `npm run start` to test!
