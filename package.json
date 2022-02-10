@@ -48,7 +48,7 @@
     "kitimat": "0.1.8",
     "kitimat-jest": "0.1.8",
     "lint-staged": "7.1.0",
-    "node-sass": "4.9.0",
+    "node-sass": "7.0.0",
     "offline-plugin": "5.0.5",
     "poi": "9.6.13",
     "poi-preset-react": "9.2.1",
